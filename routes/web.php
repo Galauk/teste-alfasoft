@@ -1,29 +1,28 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\layoutInitialController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', [layoutInitialController::class, 'layoutInitial'])->name('layout.initial');
 
-Route::get('/', [ContactController::class, 'index'])->name('index');
-Route::get('login', [ContactController::class, 'login'])->name('login');
-Route::get('create', [ContactController::class, 'create'])->name('create');
-Route::post('create', [ContactController::class, 'store'])->name('store');
-Route::get('contact/{id}', [ContactController::class, 'show'])->name('show');
-Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('edit')->middleware('auth');
-Route::put('contact/{id}', [ContactController::class, 'update'])->name('update')->middleware('auth');
-Route::delete('contact/{id}', [ContactController::class, 'destroy'])->name('destroy')->middleware('auth');
-Route::get('trashed', [ContactController::class, 'onlyTrashed'])->name('trashed')->middleware('auth');
-Route::post('restore', [ContactController::class, 'restore'])->name('restore')->middleware('auth');
+Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+Route::get('/contact/{id}/details', [ContactController::class, 'details'])->name('contact.details');
 
-Route::get('authenticate', [ContactController::class, 'authenticate'])->name('authenticate');
+Route::post('/contact/create', [ContactController::class, 'create'])->name('contact.create');
+Route::put('/contact/{id}/update', [ContactController::class, 'update'])->name('contact.update');
+Route::delete('/contact/{id}/delete', [ContactController::class, 'delete'])->name('contact.delete');
 
+
+
+Route::get('product/index', [ProductController::class, 'index'])->name('product.index');
+Route::get('product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::get('product/{id}/details', [ProductController::class, 'details'])->name('product.details');
+
+Route::post('product/create', [ProductController::class, 'create'])->name('product.create');
+Route::put('product/{id}/update', [ProductController::class, 'update'])->name('product.update');
+Route::delete('product/{id}/delete', [ProductController::class, 'delete'])->name('product.delete');
